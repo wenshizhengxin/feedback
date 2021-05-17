@@ -56,7 +56,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "?app=feedback@change_status&__addons1={$__addons}",
+            url: "?app=feedback@change_status&__addons={$__addons}",
             dataType: "json",
             async: false,
             data: {

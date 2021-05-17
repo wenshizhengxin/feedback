@@ -20,7 +20,7 @@ use epii\server\Tools;
 use epii\template\engine\EpiiViewEngine;
 use wenshizhengxin\feedback\libs\Constant;
 
-class base extends admin_center_controller
+class base extends admin_center_addons_controller
 {
     public function __construct()
     {

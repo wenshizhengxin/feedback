@@ -57,9 +57,7 @@
                     data-intop="1"
                     data-area="50%,70%"
                     data-btns="myDetail,del"
-                    data-detail-url=""
-                    data-detail-title="详情"
-                    data-del-url="?app=feedback@del&id={id}&__addons1={$__addons}"
+                    data-del-url="?app=feedback@del&id={id}&__addons={$__addons}"
                     data-del-title="删除"
                 >操作
                 </th>
@@ -74,6 +72,6 @@
     }
 
     function myDetail(field_value, row, index, field_name) {
-        return '<a class="btn btn-outline-primary btn-sm btn-dialog" data-intop="1" data-area="50%,70%" href="?app=feedback@detail&id=' + row.id + '&__addons1={$__addons}">详情</a>';
+        return '<a class="btn btn-outline-primary btn-sm btn-dialog" data-intop="1" data-area="50%,70%" href="?app=feedback@detail&id=' + row.id + '&__addons={$__addons}">详情</a>';
     }
 </script>

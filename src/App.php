@@ -7,7 +7,7 @@
  * Time: 9:18
  */
 
-namespace wenshizhengxin\preview_photo_maker;
+namespace wenshizhengxin\feedback;
 
 use epii\admin\center\config\Settings;
 use epii\admin\center\libs\AddonsApp;
