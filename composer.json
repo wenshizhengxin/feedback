@@ -1,0 +1,32 @@
+{
+    "name": "wenshizhengxin/feedback",
+    "description": "epii-admin框架 反馈信息插件",
+    "authors": [
+        {
+            "name": "Temple Chan",
+            "email": "1421224516@qq.com"
+        },
+        {
+            "name": "Mr Hu",
+            "email": "804949919@qq.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0",
+        "epii/admin-center": ">=0.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "wenshizhengxin\\feedback\\": "src/"
+        }
+    },
+    "extra": {
+        "epii_admin_addons": {
+            "app": "wenshizhengxin\\feedback\\App",
+            "title": "文始反馈信息插件",
+            "version": "0.0.1",
+            "base_name_space": "wenshizhengxin\\feedback\\app"
+        }
+    }
+}
