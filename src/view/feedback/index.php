@@ -38,12 +38,12 @@
 
 
 <div class="content">
+<!--    <div class="card-body table-responsive" style="padding-top: 0px">-->
+<!--        <a class="btn btn-outline-primary btn-table-tool btn-dialog" data-intop="1" data-area="50%,70%" title="新增"-->
+<!--           href="?app=feedback@add">新增</a>-->
+<!--    </div>-->
     <div class="card-body table-responsive" style="padding-top: 0px">
-        <a class="btn btn-outline-primary btn-table-tool btn-dialog" data-intop="1" data-area="50%,70%" title="新增"
-           href="?app=feedback@add">新增</a>
-    </div>
-    <div class="card-body table-responsive" style="padding-top: 0px">
-        <table data-table="1" data-url="?app=feedback@ajax_data" id="table1" class="table table-hover">
+        <table data-table="1" data-url="?app=feedback@ajax_data&__addons={$__addons}" id="table1" class="table table-hover">
             <thead>
             <tr>
 

@@ -1,14 +1,10 @@
-
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for epii_feedback
 -- ----------------------------
-DROP TABLE IF EXISTS `epii_feedback`;
-CREATE TABLE `epii_feedback`  (
+CREATE TABLE IF NOT EXISTS `epii_feedback`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '反馈消息表主键id',
   `feedback_title` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '反馈消息标题（如果有的话）',
   `feedback_type` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '反馈消息类型：1-项目需求；2-项目bug；3-优化建议',
@@ -22,6 +18,6 @@ CREATE TABLE `epii_feedback`  (
   `create_time` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '创建时间',
   `update_time` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '反馈消息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '反馈消息表';
 
 SET FOREIGN_KEY_CHECKS = 1;
