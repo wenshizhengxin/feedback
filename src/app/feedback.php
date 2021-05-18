@@ -7,7 +7,6 @@
  * Date: 2021/5/17
  * Time: 15:28
  */
-
 namespace wenshizhengxin\feedback\app;
 
 
@@ -23,70 +22,15 @@ class feedback extends base
     public function index()
     {
         try {
+            $typeOptions = LibFeedback::getTypeOptions(['id' => '', 'name' => '————请选择————']);
+            $this->assign('typeOptions', $typeOptions);
+            $levelOptions = LibFeedback::getLevelOptions(['id' => '', 'name' => '————请选择————']);
+            $this->assign('levelOptions', $levelOptions);
+            $statusOptions = LibFeedback::getStatusOptions(['id' => '', 'name' => '————请选择————']);
+            $this->assign('statusOptions', $statusOptions);
+
             $this->adminUiDisplay();
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
-        }
-    }
-
-    public function add()
-    {
-        try {
-            $id = Args::params('id/d', 0);
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $insertData = [
-                    'feedback_title' => Args::params('feedback_title/反馈消息标题/ss/ll'),
-                    'feedback_type' => Args::params('feedback_type/反馈消息类型/ss/ll'),
-                    'level' => Args::params('level/反馈级别/ss/ll'),
-                    'description' => Args::params('description/反馈描述/ss/ll'),
-                    'img' => Args::params('img/图片/ss/ll'),
-                    'access_time' => Args::params('access_time/访问时间/ss/ll'),
-                    'create_time' => Args::params('create_time/添加时间/ss/ll'),
-                ];
-
-                $timestamp = time();
-
-                /************事务开始************/
-                Db::startTrans();
-                if ($id === 0) { // 新增
-                    $insertData['create_time'] = $timestamp;
-                    $insertData['from_uid'] = Session::get('user_id');
-                    $res = Db::name('feedback')->insert($insertData, false, true);
-                    if (!$res) {
-                        throw new \Exception('添加失败');
-                    }
-
-                    Mail::send('*', '【文始反馈】' . $insertData['feedback_title'], nl2br($insertData['description']));
-                } else { // 修改
-                    $insertData['update_time'] = $timestamp;
-                    $res = Db::name('feedback')->where('id', $id)->update($insertData);
-                    if (!$res) {
-                        throw new \Exception('修改失败');
-                    }
-                }
-
-                Db::commit();
-                /************事务结束************/
-
-                $this->success();
-            } else {
-                if ($id > 0) {
-                    $feedback = Db::name('feedback')->where('id', $id)->find();
-                    $this->assign('feedback', $feedback);
-                }
-
-                $typeOptions = LibFeedback::getTypeOptions();
-                $this->assign('typeOptions', $typeOptions);
-
-                $levelOptions = LibFeedback::getLevelOptions();
-                $this->assign('levelOptions', $levelOptions);
-
-                $statusOptions = LibFeedback::getStatusOptions();
-                $this->assign('statusOptions', $statusOptions);
-                $this->adminUiDisplay();
-            }
-        } catch (\Exception $e) {
-            Db::rollback();
             $this->error($e->getMessage());
         }
     }
@@ -101,14 +45,20 @@ class feedback extends base
                     'f.feedback_title', 'like', '%' . $feedback_title . '%'
                 ];
             }
-            if ($feedback_type = Args::params('feedback_type')) {
+            if ($feedback_type = Args::params('feedback_type', '')) {
                 $where[] = [
-                    'f.feedback_type', 'like', '%' . $feedback_type . '%'
+                    'f.feedback_type', '=', $feedback_type
                 ];
             }
-            if ($level = Args::params('level')) {
+            if ($level = Args::params('level', '')) {
                 $where[] = [
-                    'f.level', 'like', '%' . $level . '%'
+                    'f.level', '=', $level
+                ];
+            }
+            $status = Args::params('status', '');
+            if ($status !== '') {
+                $where[] = [
+                    'f.status', '=', $status
                 ];
             }
 
@@ -125,9 +75,69 @@ class feedback extends base
                 $row['access_time'] = $row['access_time'] ? date('Y-m-d H:i:s', $row['access_time']) : '-';
                 $row['create_time'] = $row['create_time'] ? date('Y-m-d H:i:s', $row['create_time']) : '-';
                 $row['update_time'] = $row['update_time'] ? date('Y-m-d H:i:s', $row['update_time']) : '-';
+
                 return $row;
             });
         } catch (\Exception $e) {
+        }
+    }
+
+    public function add()
+    {
+        try {
+            $id = Args::params('id/d', 0);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $insertData = [
+                    'feedback_title' => Args::params('feedback_title/s/1'),
+                    'feedback_type' => Args::params('feedback_type/1'),
+                    'level' => Args::params('level/1'),
+                    'description' => Args::params('description/s'),
+                    'img' => Args::params('img/s'),
+                ];
+                $timestamp = time();
+
+                /************事务开始************/
+                Db::startTrans();
+                if ($id === 0) { // 新增
+                    $insertData['create_time'] = $timestamp;
+                    $insertData['from_uid'] = Session::get('user_id');
+                    $res = Db::name('feedback')->insert($insertData, false, true);
+
+                    if (!$res) {
+                        throw new \Exception('添加失败');
+                    }
+
+                    Mail::send('*', '【文始反馈】' . $insertData['feedback_title'], nl2br($insertData['description']));
+                } else { // 修改
+                    $insertData['update_time'] = $timestamp;
+                    $res = Db::name('feedback')->where('id', $id)->update($insertData);
+                    if (!$res) {
+                        throw new \Exception('修改失败');
+                    }
+                }
+
+                Db::commit();
+                /************事务结束************/
+                $this->success('操作成功', 'refresh');
+            } else {
+                if ($id > 0) {
+                    $feedback = Db::name('feedback')->where('id', $id)->find();
+                    $this->assign('feedback', $feedback);
+                }
+
+                // 绑定下拉框选项数据
+                $typeOptions = LibFeedback::getTypeOptions(['id' => '', 'name' => '————请选择————']);
+                $this->assign('typeOptions', $typeOptions);
+                $levelOptions = LibFeedback::getLevelOptions();
+                $this->assign('levelOptions', $levelOptions);
+                $statusOptions = LibFeedback::getStatusOptions();
+                $this->assign('statusOptions', $statusOptions);
+
+                $this->adminUiDisplay();
+            }
+        } catch (\Exception $e) {
+            Db::rollback();
+            $this->error($e->getMessage());
         }
     }
 

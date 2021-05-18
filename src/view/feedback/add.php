@@ -15,7 +15,7 @@
     <div class="form-group">
         <label>级别：</label>
         <select class="selectpicker" name="level" id="level">
-            {:options,$levelOptions,$feedback['level']?}
+            {:options,$levelOptions,$feedback['level']?wenshizhengxin\feedback\libs\Constant::LEVEL_NORMAL}
         </select>
     </div>
 

@@ -8,20 +8,28 @@
                 <div class="card-body">
                     <form role="form" data-form="1" data-search-table-id="1" data-title="自定义标题">
                         <div class="form-inline">
-
                             <div class="form-group">
                                 <label>标题：</label>
                                 <input type="text" class="form-control" name="feedback_title" placeholder="请输入反馈消息标题">
                             </div>
                             <div class="form-group">
                                 <label>类型：</label>
-                                <input type="text" class="form-control" name="feedback_type" placeholder="请输入反馈消息类型">
+                                <select class="selectpicker" name="feedback_type" id="feedback_type">
+                                    {:options,$typeOptions}
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>级别：</label>
-                                <input type="text" class="form-control" name="level" placeholder="请输入反馈级别">
+                                <select class="selectpicker" name="level" id="level">
+                                    {:options,$levelOptions}
+                                </select>
                             </div>
-
+                            <div class="form-group">
+                                <label>状态：</label>
+                                <select class="selectpicker" name="status" id="status">
+                                    {:options,$statusOptions}
+                                </select>
+                            </div>
                         </div>
                         <div class="form-inline">
                             <div class="form-group" style="margin-left: 10px">
@@ -38,10 +46,6 @@
 
 
 <div class="content">
-<!--    <div class="card-body table-responsive" style="padding-top: 0px">-->
-<!--        <a class="btn btn-outline-primary btn-table-tool btn-dialog" data-intop="1" data-area="50%,70%" title="新增"-->
-<!--           href="?app=feedback@add">新增</a>-->
-<!--    </div>-->
     <div class="card-body table-responsive" style="padding-top: 0px">
         <table data-table="1" data-url="?app=feedback@ajax_data&__addons={$__addons}" id="table1" class="table table-hover">
             <thead>
