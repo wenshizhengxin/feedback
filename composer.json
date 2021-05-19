@@ -14,7 +14,8 @@
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "epii/admin-center": ">=0.0.1"
+        "epii/admin-center": ">=0.0.1",
+		"phpmailer/phpmailer": "^6.2"
     },
     "autoload": {
         "psr-4": {
