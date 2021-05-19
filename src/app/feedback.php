@@ -10,6 +10,7 @@
 namespace wenshizhengxin\feedback\app;
 
 
+use epii\admin\center\config\Settings;
 use epii\server\Args;
 use think\Db;
 use wangshouwei\session\Session;
@@ -39,6 +40,14 @@ class feedback extends base
     {
         try {
             $where = [];
+
+            $role = intval(Session::get('admin_gid'));
+            $seniorAuthRoles = array_filter(explode(',', Settings::get(Constant::ADDONS . '.senior_auth_roles')));
+            if ($role !== 1 && in_array($role, $seniorAuthRoles) === false) { // 你没有查看所有反馈的权限。。。
+                $where[] = [
+                    'f.from_uid', '=', Session::get('user_id'),
+                ];
+            }
 
             if ($feedback_title = Args::params('feedback_title')) {
                 $where[] = [
@@ -191,7 +200,12 @@ class feedback extends base
         try {
             $id = Args::params('id/d/1');
             $status = Args::params('status/d/1');
-            $res = Db::name(Constant::TABLE_FEEDBACK)->where('id', $id)->update(['status' => $status, 'update_time' => time()]);
+            $timestamp = time();
+            $updateData = ['status' => $status, 'finish_time' => $timestamp, 'update_time' => $timestamp];
+            if ($status !== Constant::STATUS_FINISHED) { // 不是完成，finish_time不能记录
+                unset($updateData['finish_time']);
+            }
+            $res = Db::name(Constant::TABLE_FEEDBACK)->where('id', $id)->update($updateData);
             if (!$res) {
                 throw new \Exception('修改失败');
             }

@@ -15,7 +15,7 @@
     "require": {
         "php": ">=7.0",
         "epii/admin-center": ">=0.0.1",
-		"phpmailer/phpmailer": "^6.2"
+        "phpmailer/phpmailer": "^6.2"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +26,7 @@
         "epii_admin_addons": {
             "app": "wenshizhengxin\\feedback\\App",
             "title": "文始反馈信息插件",
-            "version": "0.0.1",
+            "version": "0.1.0",
             "base_name_space": "wenshizhengxin\\feedback\\app"
         }
     }

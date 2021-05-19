@@ -39,10 +39,12 @@
 
 
     <div class="form-footer">
-        <button type="button" class="btn btn-primary" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED ?>)">
+        <button type="button" class="btn btn-primary" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED ?>)"
+                <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED): ?>disabled<?php endif; ?>>
             标记为已解决
         </button>
-        <button type="button" class="btn btn-danger" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED ?>)">
+        <button type="button" class="btn btn-danger" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED ?>)"
+                <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED): ?>disabled<?php endif; ?>>
             退回
         </button>
     </div>
