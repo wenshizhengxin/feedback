@@ -116,7 +116,12 @@ class feedback extends base
                         throw new \Exception('添加失败');
                     }
 
-                    Mail::send('*', '【文始反馈】' . $insertData['feedback_title'], nl2br($insertData['description']));
+                    if (Settings::get(Constant::ADDONS . '.mail_account')
+                        && Settings::get(Constant::ADDONS . '.mail_verify_code')
+                        && Settings::get(Constant::ADDONS . '.mail_send_addresses')
+                    ) {
+                        Mail::send('*', '【文始反馈】' . $insertData['feedback_title'], nl2br($insertData['description']));
+                    }
                 } else { // 修改
                     $insertData['update_time'] = $timestamp;
                     $res = Db::name('feedback')->where('id', $id)->update($insertData);

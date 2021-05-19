@@ -30,7 +30,7 @@ class Mail
         $mail->SMTPSecure = 'ssl';                    // 允许 TLS 或者ssl协议
         $mail->Port = 465;                            // 服务器端口 25 或者465 具体要看邮箱服务器支持
 
-        $mail->setFrom('1421224516@qq.com', '文始征信-陈庙琴');  //发件人
+        $mail->setFrom($mail->Username, '文始征信-反馈助手');  //发件人
 
         foreach ($addresses as $key => $value) { // 'xxx@qq.com' or 'xxx@qq.com'=>'wwoqu'
             if (is_int($key)) {
