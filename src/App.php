@@ -39,10 +39,10 @@ class App extends AddonsApp
         if (!$id) {
             return false;
         }
-        $id = $this->addMenu($pid, '我要反馈', '?app=feedback@add&__addons=' . Constant::ADDONS);
-        if (!$id) {
-            return false;
-        }
+//        $id = $this->addMenu($pid, '我要反馈', '?app=feedback@add&__addons=' . Constant::ADDONS);
+//        if (!$id) {
+//            return false;
+//        }
 
         return true;
     }

@@ -47,6 +47,10 @@
 
 <div class="content">
     <div class="card-body table-responsive" style="padding-top: 0px">
+        <a class="btn btn-outline-primary btn-table-tool btn-dialog" data-intop="1" data-area="50%,70%" title="我要反馈"
+           href="?app=feedback@add&__addons={$__addons}">我要反馈</a>
+    </div>
+    <div class="card-body table-responsive" style="padding-top: 0px">
         <table data-table="1" data-url="?app=feedback@ajax_data&__addons={$__addons}" id="table1" class="table table-hover">
             <thead>
             <tr>
@@ -60,9 +64,7 @@
                 <th data-formatter="epiiFormatter.btns"
                     data-intop="1"
                     data-area="50%,70%"
-                    data-btns="myDetail,del"
-                    data-del-url="?app=feedback@del&id={id}&__addons={$__addons}"
-                    data-del-title="删除"
+                    data-btns="myDetail,myDel"
                 >操作
                 </th>
             </tr>
@@ -76,6 +78,13 @@
     }
 
     function myDetail(field_value, row, index, field_name) {
-        return '<a class="btn btn-outline-primary btn-sm btn-dialog" data-intop="1" data-area="50%,70%" href="?app=feedback@detail&id=' + row.id + '&__addons={$__addons}">详情</a>';
+        return '<a class="btn btn-outline-primary btn-sm btn-dialog" data-intop="1" data-area="50%,70%" href="?app=feedback@detail&id=' + row.id + '&__addons={$__addons}" title="反馈详情"><i class="fa fa-list"></i>详情</a>';
+    }
+
+    function myDel(field_value, row, index, field_name) {
+        if (row.status == 0 || row.status == 1) {
+            return '<a class="btn btn-outline-danger btn-sm btn-confirm" href="?app=feedback@del&id=' + row.id + '&__addons={$__addons}" data-msg="确定要删除吗？"><i class="fa fa-trash"></i>删除</a>';
+        }
+        return '';
     }
 </script>

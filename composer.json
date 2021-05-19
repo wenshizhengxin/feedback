@@ -26,7 +26,7 @@
         "epii_admin_addons": {
             "app": "wenshizhengxin\\feedback\\App",
             "title": "文始反馈信息插件",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "base_name_space": "wenshizhengxin\\feedback\\app"
         }
     }

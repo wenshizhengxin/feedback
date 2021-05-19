@@ -26,6 +26,7 @@ class Constant
 
     const STATUS_PENDING = 0;
     const STATUS_RECEIVED = 1;
+    const STATUS_DEALING = 5;
     const STATUS_RETURNED = 9;
     const STATUS_FINISHED = 10;
 }

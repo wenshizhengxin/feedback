@@ -132,7 +132,7 @@ class feedback extends base
 
                 Db::commit();
                 /************事务结束************/
-                $this->success('操作成功', 'refresh');
+                $this->success('操作成功');
             } else {
                 if ($id > 0) {
                     $feedback = Db::name('feedback')->where('id', $id)->find();
@@ -206,9 +206,15 @@ class feedback extends base
             $id = Args::params('id/d/1');
             $status = Args::params('status/d/1');
             $timestamp = time();
-            $updateData = ['status' => $status, 'finish_time' => $timestamp, 'update_time' => $timestamp];
-            if ($status !== Constant::STATUS_FINISHED) { // 不是完成，finish_time不能记录
-                unset($updateData['finish_time']);
+            $updateData = ['status' => $status, 'update_time' => $timestamp];
+            if ($status === Constant::STATUS_DEALING) { // 处理中
+                $updateData['dealing_time'] = $timestamp;
+            }
+            if ($status === Constant::STATUS_FINISHED) { // 已完成
+                $updateData['finish_time'] = $timestamp;
+            }
+            if ($status === Constant::STATUS_RETURNED) { // 已退回
+                $updateData['return_time'] = $timestamp;
             }
             $res = Db::name(Constant::TABLE_FEEDBACK)->where('id', $id)->update($updateData);
             if (!$res) {

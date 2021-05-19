@@ -36,13 +36,11 @@
 
     <div class="form-group">
         <label>描述：</label>
-        <div class="form-group custom-date">
-            <textarea name="description" cols="125" rows="5" style="width: 100%;" placeholder="请输入反馈描述">{$feedback['description'] ? ""}</textarea>
-        </div>
+        <textarea name="description" class="form-control" rows="5" placeholder="请输入反馈描述">{$feedback['description'] ? ""}</textarea>
     </div>
 
 
-    <div class="form-footer">
+    <div class="form-footer" style="margin-bottom: 2rem">
         <input type="hidden" name="id" value="{$feedback['id'] ? 0}">
         <button type="submit" class="btn btn-primary">提交</button>
     </div>

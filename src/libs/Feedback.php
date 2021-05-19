@@ -66,7 +66,8 @@ class Feedback
     {
         $result = [
             ['id' => Constant::STATUS_PENDING, 'name' => '已提交'],
-            ['id' => Constant::STATUS_RECEIVED, 'name' => '已回应'],
+            ['id' => Constant::STATUS_RECEIVED, 'name' => '已阅览'],
+            ['id' => Constant::STATUS_DEALING, 'name' => '处理中'],
             ['id' => Constant::STATUS_RETURNED, 'name' => '已退回'],
             ['id' => Constant::STATUS_FINISHED, 'name' => '已解决'],
         ];

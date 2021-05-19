@@ -38,15 +38,23 @@
     </div>
 
 
-    <div class="form-footer">
-        <button type="button" class="btn btn-primary" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED ?>)"
-                <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED): ?>disabled<?php endif; ?>>
-            标记为已解决
-        </button>
-        <button type="button" class="btn btn-danger" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED ?>)"
-                <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED): ?>disabled<?php endif; ?>>
-            退回
-        </button>
+    <div class="form-footer" style="margin-bottom: 2rem;">
+        <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_PENDING || $feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_RECEIVED): ?>
+            <button type="button" class="btn btn-primary" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_DEALING ?>)"
+                    <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_DEALING): ?>disabled<?php endif; ?>>
+                开始处理
+            </button>
+        <?php endif; ?>
+        <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_DEALING): ?>
+            <button type="button" class="btn btn-success" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED ?>)"
+                    <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_FINISHED): ?>disabled<?php endif; ?>>
+                已解决
+            </button>
+            <button type="button" class="btn btn-danger" onclick="changeStatus(<?php echo \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED ?>)"
+                    <?php if ($feedback['status'] === \wenshizhengxin\feedback\libs\Constant::STATUS_RETURNED): ?>disabled<?php endif; ?>>
+                退回
+            </button>
+        <?php endif; ?>
     </div>
 </form>
 
